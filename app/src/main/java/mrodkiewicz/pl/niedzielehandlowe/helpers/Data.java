@@ -1,7 +1,10 @@
 package mrodkiewicz.pl.niedzielehandlowe.helpers;
 
 import android.util.Log;
+import android.widget.Toast;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -48,7 +51,12 @@ public class Data {
         dateCloseList.add(new Date(2018, 11, 18));
         dateCloseList.add(new Date(2018, 12, 9));
 
+
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT+1"));
+
+
         //pobieranie wszytkich niedziel
+        //chyba dziala
         int dayOfWeek = Calendar.SUNDAY;
         Calendar cal = new GregorianCalendar();
         cal.set(2018, 0, 0, 0, 0);
@@ -59,7 +67,6 @@ public class Data {
             cal.add(Calendar.DAY_OF_MONTH, 7);
         }
 
-        //pobieranie najblizszej niedzieli zamknietej
 
         //========== NIEUZYWANE BO SIE PSUJE ==========
         //jesli dzien zawiera sie do poniedzialku do srodu musimy zmenic go na czwartek aby nie wykryło nam poprzednich tygodni
@@ -74,6 +81,9 @@ public class Data {
 //        }
         //=============================================
 
+
+        //pobieranie najblizszej niedzieli zamknietej
+        // NIE DZIALA !!!!
         final Long today = Calendar.getInstance().getTimeInMillis();
         closestCloseSunday = Collections.min(dateCloseList, new Comparator<Date>() {
             public int compare(Date d1, Date d2) {
@@ -83,7 +93,9 @@ public class Data {
             }
         });
 
+
         //pobieranie najblizszej niedzieli
+        // NIE MOZE UWZGLENDNIAC POPRZEDNICH NIEDZIEL!!!
         closestSunday = Collections.min(sundays, new Comparator<Date>() {
             public int compare(Date d1, Date d2) {
                 long diff1 = Math.abs(d1.getTime() - today);
@@ -93,10 +105,12 @@ public class Data {
         });
 
 
+
         //poprawianie roku na 2018
         Date date1 = new Date(closestCloseSunday.getYear() - 1900,closestCloseSunday.getMonth(),closestCloseSunday.getDay());
         closestCloseSunday = date1;
 
+        Log.d("DATA timezone", TimeZone.getDefault().getDisplayName());
         Log.d("DATA najblizsza",closestSunday.toString()+" closestSunday");
         Log.d("DATA zamknieta",closestCloseSunday.toString()+" closestCloseSunday");
 

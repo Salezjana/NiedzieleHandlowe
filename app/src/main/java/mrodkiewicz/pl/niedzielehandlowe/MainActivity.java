@@ -20,9 +20,10 @@ import mrodkiewicz.pl.niedzielehandlowe.tools.TodayDecorator;
 
 /*
 Do zrobienia:
-    1. psuje sie timezone w closestCloseSunday
+    1. podaje zła date w closestCloseSunday
        Date wypluwa: Wed Apr 04 00:00:00 GMT+02:00 2018
        powinno byc GTM+01
+       PRAWDOPODBNE ROZIWAZNIE ZLY ROK !!!!!!!!!!
     2. Algorytm wykrywa najblizsza niedzile ale trzeba wykluczyc niedziele która juz mineła. Próbowałem to zrobic poprzez dodanie dni aby blizesz było do nastepnego niz poprzedniego weeknedu lecz wtedy oblizcenia szły sie
     3. Kolorowanie nieczynnych niedzieli na czerwono
     4. Dodanie funkconalności do opcji w Main Menu
