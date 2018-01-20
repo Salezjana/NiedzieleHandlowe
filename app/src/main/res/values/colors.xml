@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#42a5f5</color>
-    <color name="colorPrimaryDark">#0077c2</color>
-    <color name="colorPrimaryLight">#80d6ff</color>
-    <color name="colorAccent">#ffa726</color>
-    <color name="colorAceentLight">#ffd95b</color>
-    <color name="colorAceentDark">#c77800</color>
-    <color name="darkTextColor">#000000</color>
+    <color name="colorPrimary">#03a9f4</color>
+    <color name="colorPrimaryLight">#67daff</color>
+    <color name="colorPrimaryDark">#007ac1</color>
+    <color name="colorAccent">#ff6f00</color>
+    <color name="colorAceentLight">#ffa040</color>
+    <color name="colorAceentDark">#c43e00</color>
+    <color name="darkTextColor">#373737</color>
     <color name="lightTextColor">#ffffff</color>
 
 
-
-
+    <color name="openSunday">#60ad5e</color>
+    <color name="closeSunday">#e53935</color>
+    <color name="background">#eeeeee</color>
 </resources>

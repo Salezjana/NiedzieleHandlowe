@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="0dp"
-    android:background="@color/colorAceentLight">
+    android:background="@color/background">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="0dp"
         android:layout_weight="2"
-        android:background="@color/colorAceentDark">
+        android:background="@color/closeSunday">
 
 
         <ImageView
@@ -29,7 +30,7 @@
         android:layout_height="0dp"
         android:layout_margin="0dp"
         android:layout_weight="1"
-        android:background="@color/colorAceentDark">
+        >
 
         <TextView
             android:id="@+id/textView"
@@ -37,7 +38,10 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/closeSunday"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout

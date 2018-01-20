@@ -1,12 +1,15 @@
 package mrodkiewicz.pl.niedzielehandlowe;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -20,13 +23,9 @@ import mrodkiewicz.pl.niedzielehandlowe.tools.TodayDecorator;
 
 /*
 Do zrobienia:
-    1. podaje zła date w closestCloseSunday
-       Date wypluwa: Wed Apr 04 00:00:00 GMT+02:00 2018
-       powinno byc GTM+01
-       PRAWDOPODBNE ROZIWAZNIE ZLY ROK !!!!!!!!!!
-    2. Algorytm wykrywa najblizsza niedzile ale trzeba wykluczyc niedziele która juz mineła. Próbowałem to zrobic poprzez dodanie dni aby blizesz było do nastepnego niz poprzedniego weeknedu lecz wtedy oblizcenia szły sie
-    3. Kolorowanie nieczynnych niedzieli na czerwono
-    4. Dodanie funkconalności do opcji w Main Menu
+    1. Algorytm wykrywa najblizsza niedzile ale trzeba wykluczyc niedziele która juz mineła.
+    2. Kolorowanie nieczynnych niedzieli na czerwono
+    3. Dodanie funkconalności do opcji w Main Menu
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -34,17 +33,26 @@ public class MainActivity extends AppCompatActivity {
     private MaterialCalendarView calendarView;
     private TextView textView;
     private ImageView imageView;
+    private LinearLayout linearLayout;
+    private int openSunday,closeSunday;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("TEST", String.valueOf(data.isNextSundayClose()));
-        Log.d("TEST", String.valueOf(data.closestSunday().toString()));
         textView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
+
+
+        openSunday = getResources().getColor(R.color.openSunday);
+        closeSunday = getResources().getColor(R.color.closeSunday);
+
+        Log.d("TEST", String.valueOf(data.isNextSundayClose()));
+        Log.d("TEST", String.valueOf(data.closestSunday().toString()));
         calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
 
         // styczen = 0 grudzien = 11
@@ -61,10 +69,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (data.isNextSundayClose()){
             textView.setText(getString(R.string.state_close_text));
+            textView.setTextColor(closeSunday);
             imageView.setImageResource(R.drawable.ic_remove_shopping_cart_black_24dp);
+            linearLayout.setBackgroundColor(closeSunday);
+
         }else{
             textView.setText(getString(R.string.state_open_text));
+            textView.setTextColor(openSunday);
             imageView.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
+            linearLayout.setBackgroundColor(openSunday);
 
         }
 
