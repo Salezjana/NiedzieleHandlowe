@@ -55,6 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
+            app:mcv_arrowColor="@color/colorPrimaryDark"
+            app:mcv_firstDayOfWeek="monday"
             />
 
     </LinearLayout>

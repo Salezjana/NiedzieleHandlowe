@@ -3,19 +3,24 @@ package mrodkiewicz.pl.niedzielehandlowe.tools;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import java.util.Calendar;
+import java.util.Date;
+
+import mrodkiewicz.pl.niedzielehandlowe.MainActivity;
+import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
 
 
 public class CloseSundayDecorator implements DayViewDecorator {
-    private final Calendar calendar = Calendar.getInstance();
-    private final Calendar calendar1 = Calendar.getInstance();
+    private final Date date = new Date();
     private final Drawable highlightDrawable;
-    private static final int color = Color.parseColor("#ffffff");
+    private final Data data = MainActivity.getData();
+    private static final int color = Color.parseColor("#000000");
 
     public CloseSundayDecorator() {
         highlightDrawable = new ColorDrawable(color);
@@ -23,9 +28,17 @@ public class CloseSundayDecorator implements DayViewDecorator {
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        day.copyTo(calendar);
-        int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
-        return weekDay == Calendar.SATURDAY || weekDay == Calendar.SUNDAY;
+        boolean isClose = false;
+
+        for (Date date:data.dateCloseList){
+            if (day.getDate().getDay() == date.getDay() && day.getDate().getMonth() == date.getMonth()){
+                Log.d("WASZSZNE BARDZO",date.toString() + "");
+                Log.d("WASZSZNE BARDZO",day.getDate().toString() + "");
+                isClose= true;
+            }
+
+        }
+        return isClose;
     }
 
     @Override

@@ -85,19 +85,14 @@ public class Data {
 
 
 
-        //pobieranie wszytkich NASTEPNYCH niedziel
-        // DZIALA
+        //pobieranie wszytkich niedziel
         int dayOfWeek = Calendar.SUNDAY;
         Calendar cal = new GregorianCalendar();
         cal.set(2018, 0, 0, 0, 0);
         cal.set(DAY_OF_WEEK, dayOfWeek);
 
         while (cal.get(Calendar.YEAR) == 2018) {
-            nextSundays.add(cal.getTime());
-            long diff = cal.getTimeInMillis() - today;
-            float days = (diff / (1000*60*60*24));
-            //Log.d("DATA dni",diff+"");
-            Log.d("DATA data",cal.getTime().toString());
+            allSundays.add(cal.getTime());
             cal.add(Calendar.DAY_OF_MONTH, 7);
         }
 
@@ -123,7 +118,9 @@ public class Data {
                 return Long.compare(diff1, diff2);
             }
         });
-
+        //poprawianie roku na 2018
+        Date date1 = new Date(closestCloseSunday.getYear() - 1900,closestCloseSunday.getMonth(),closestCloseSunday.getDay());
+        closestCloseSunday = date1;
 
         //zabezpiecznie przed fck up
         if (closestSunday.before(new Date(today))){

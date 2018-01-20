@@ -17,15 +17,19 @@ import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
+import mrodkiewicz.pl.niedzielehandlowe.tools.CloseSundayDecorator;
 import mrodkiewicz.pl.niedzielehandlowe.tools.NotificationsDecorator;
 import mrodkiewicz.pl.niedzielehandlowe.tools.OpenWeekendDecorator;
 import mrodkiewicz.pl.niedzielehandlowe.tools.TodayDecorator;
 
 /*
 Do zrobienia:
-    1. Algorytm wykrywa najblizsza niedzile ale trzeba wykluczyc niedziele która juz mineła.
-    2. Kolorowanie nieczynnych niedzieli na czerwono
-    3. Dodanie funkconalności do opcji w Main Menu
+    0. Trzeba stworzyc własna klase data ktora oblsuzy wszytko to co potrzebujemy 
+    1. Nie działa wykrywanie najblizszych niedziel
+    2. Algorytm wykrywa najblizsza niedzile ale trzeba wykluczyc niedziele która juz mineła.
+    3. Kolorowanie nieczynnych niedzieli na czerwono
+    4. Dodanie funkconalności do opcji w Main Menu
+    5. Wsadzenie wysztkich wyliczen z date do osobnych metod
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -64,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         calendarView.addDecorators(
                 new NotificationsDecorator(),
                 new OpenWeekendDecorator(),
-                new TodayDecorator()
+                new CloseSundayDecorator(),
+        new TodayDecorator()
         );
 
         if (data.isNextSundayClose()){
