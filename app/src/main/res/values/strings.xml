@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">NiedzieleHandlowe</string>
+    <string name="app_name">Niedziele Handlowe</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="state_open_text">W NAJBLIZSZĄ NIEDZIELE SKLEPY SĄ OTWARTE</string>
+    <string name="state_close_text">W NAJBLIZSZĄ NIEDZIELE SKLEPY SĄ ZAMKNIĘTE</string>
+
+    <string name="action_rate">Oceń Apke!</string>
+    <string name="action_bug">Zgłoś Bład</string>
+    <string name="action_settings">Ustawienia</string>
 </resources>

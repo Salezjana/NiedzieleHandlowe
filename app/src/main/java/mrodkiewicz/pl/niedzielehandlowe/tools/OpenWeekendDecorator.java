@@ -3,6 +3,7 @@ package mrodkiewicz.pl.niedzielehandlowe.tools;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -10,16 +11,12 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import java.util.Calendar;
 
-/**
- * Highlight Saturdays and Sundays with a background
- */
-public class HighlightWeekendsDecorator implements DayViewDecorator {
-
+public class OpenWeekendDecorator implements DayViewDecorator {
     private final Calendar calendar = Calendar.getInstance();
     private final Drawable highlightDrawable;
     private static final int color = Color.parseColor("#228BC34A");
 
-    public HighlightWeekendsDecorator() {
+    public OpenWeekendDecorator() {
         highlightDrawable = new ColorDrawable(color);
     }
 

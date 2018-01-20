@@ -1,4 +1,5 @@
 package mrodkiewicz.pl.niedzielehandlowe.tools;
+
 import android.graphics.Typeface;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
@@ -10,9 +11,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.Date;
 
-/**
- * Decorate a day by making the text big and bold
- */
+
 public class TodayDecorator implements DayViewDecorator {
 
     private CalendarDay date;
@@ -23,9 +22,9 @@ public class TodayDecorator implements DayViewDecorator {
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        if (day.equals(date)){
+        if (day.equals(date)) {
             return true;
-        }else{
+        } else {
             return false;
         }
 

@@ -1,28 +1,35 @@
 package mrodkiewicz.pl.niedzielehandlowe;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
-import mrodkiewicz.pl.niedzielehandlowe.tools.HighlightWeekendsDecorator;
 import mrodkiewicz.pl.niedzielehandlowe.tools.NotificationsDecorator;
+import mrodkiewicz.pl.niedzielehandlowe.tools.OpenWeekendDecorator;
 import mrodkiewicz.pl.niedzielehandlowe.tools.TodayDecorator;
 
-public class MainActivity extends AppCompatActivity {
+/*
+Do zrobienia:
+    1. psuje sie timezone w closestCloseSunday
+       Date wypluwa: Wed Apr 04 00:00:00 GMT+02:00 2018
+       powinno byc GTM+01
+    2. Algorytm wykrywa najblizsza niedzile ale trzeba wykluczyc niedziele która juz mineła. Próbowałem to zrobic poprzez dodanie dni aby blizesz było do nastepnego niz poprzedniego weeknedu lecz wtedy oblizcenia szły sie
+    3. Kolorowanie nieczynnych niedzieli na czerwono
+    4. Dodanie funkconalności do opcji w Main Menu
+ */
 
-    private Data data;
+public class MainActivity extends AppCompatActivity {
+    public static Data data = new Data();
     private MaterialCalendarView calendarView;
     private TextView textView;
     private ImageView imageView;
@@ -32,18 +39,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        data = new Data();
-        data.init();
-
-
-        Log.d("TEST", String.valueOf(data.isNextWeekOpen()));
-
+        Log.d("TEST", String.valueOf(data.isNextSundayClose()));
+        Log.d("TEST", String.valueOf(data.closestSunday().toString()));
         textView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
         calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
-        // styczen = 0 grudzien = 11
 
+        // styczen = 0 grudzien = 11
         calendarView.state().edit()
                 .setMinimumDate(CalendarDay.from(2018, 0, 1))
                 .setMaximumDate(CalendarDay.from(2018, 11, 31))
@@ -51,12 +54,35 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
         calendarView.addDecorators(
                 new NotificationsDecorator(),
-                new HighlightWeekendsDecorator(),
+                new OpenWeekendDecorator(),
                 new TodayDecorator()
         );
+
+        if (data.isNextSundayClose()){
+            textView.setText(getString(R.string.state_close_text));
+            imageView.setImageResource(R.drawable.ic_remove_shopping_cart_black_24dp);
+        }else{
+            textView.setText(getString(R.string.state_open_text));
+            imageView.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
+
+        }
+
     }
 
-    public static Context getContext(){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
+    }
+    public static Context getContext() {
         return getContext();
+    }
+
+    public static Data getData() {
+        return data;
     }
 }
