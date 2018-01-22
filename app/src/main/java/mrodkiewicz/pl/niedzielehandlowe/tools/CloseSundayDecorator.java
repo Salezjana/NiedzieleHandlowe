@@ -19,22 +19,25 @@ import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
 public class CloseSundayDecorator implements DayViewDecorator {
     private final Date date = new Date();
     private final Drawable highlightDrawable;
+    private Calendar calendar;
     private final Data data = MainActivity.getData();
-    private static final int color = Color.parseColor("#000000");
+    private static final int color = Color.parseColor("#e53935");
 
     public CloseSundayDecorator() {
         highlightDrawable = new ColorDrawable(color);
+        calendar = Calendar.getInstance();
     }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         boolean isClose = false;
+        day.copyTo(calendar);
 
         for (Date date:data.dateCloseList){
-            if (day.getDate().getDay() == date.getDay() && day.getDate().getMonth() == date.getMonth()){
-                Log.d("WASZSZNE BARDZO",date.toString() + "");
-                Log.d("WASZSZNE BARDZO",day.getDate().toString() + "");
-                isClose= true;
+            if (calendar.get(Calendar.DAY_OF_MONTH) == date.getDay() & calendar.get(Calendar.MONTH) == date.getMonth()){
+                    Log.d("WASZSZNE BARDZO1",calendar.getTime().toString() + "");
+                    Log.d("WASZSZNE BARDZO2",date.toString() + "");
+                    isClose= true;
             }
 
         }

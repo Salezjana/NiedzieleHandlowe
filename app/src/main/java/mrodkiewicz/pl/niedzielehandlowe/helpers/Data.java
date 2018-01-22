@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -19,6 +20,8 @@ import static java.util.Calendar.DAY_OF_WEEK;
 
 
 public class Data {
+    final Long today = Calendar.getInstance().getTimeInMillis();
+
     public ArrayList<Date> dateCloseList = new ArrayList<java.util.Date>();
     public ArrayList<Date> nextSundays = new ArrayList<java.util.Date>();
     public ArrayList<Date> allSundays = new ArrayList<java.util.Date>();
@@ -29,41 +32,92 @@ public class Data {
     }
 
     public void init() {
-        dateCloseList.add(new Date(2018, 3, 11));
-        dateCloseList.add(new Date(2018, 3, 18));
-        dateCloseList.add(new Date(2018, 4, 1));
-        dateCloseList.add(new Date(2018, 4, 8));
-        dateCloseList.add(new Date(2018, 4, 15));
-        dateCloseList.add(new Date(2018, 4, 22));
-        dateCloseList.add(new Date(2018, 5, 12));
-        dateCloseList.add(new Date(2018, 5, 20));
-        dateCloseList.add(new Date(2018, 6, 10));
-        dateCloseList.add(new Date(2018, 6, 17));
-        dateCloseList.add(new Date(2018, 7, 8));
-        dateCloseList.add(new Date(2018, 7, 15));
-        dateCloseList.add(new Date(2018, 7, 22));
-        dateCloseList.add(new Date(2018, 8, 12));
-        dateCloseList.add(new Date(2018, 8, 19));
-        dateCloseList.add(new Date(2018, 9, 9));
-        dateCloseList.add(new Date(2018, 9, 16));
-        dateCloseList.add(new Date(2018, 9, 23));
-        dateCloseList.add(new Date(2018, 10, 14));
-        dateCloseList.add(new Date(2018, 10, 21));
-        dateCloseList.add(new Date(2018, 11, 11));
-        dateCloseList.add(new Date(2018, 11, 18));
-        dateCloseList.add(new Date(2018, 12, 9));
+        dateCloseList.add(new Date(118, 2, 11));
+        dateCloseList.add(new Date(118, 2, 18));
+        dateCloseList.add(new Date(118, 3, 1));
+        dateCloseList.add(new Date(118, 3, 8));
+        dateCloseList.add(new Date(118, 3, 15));
+        dateCloseList.add(new Date(118, 3, 22));
+        dateCloseList.add(new Date(118, 4, 12));
+        dateCloseList.add(new Date(118, 4, 20));
+        dateCloseList.add(new Date(118, 5, 10));
+        dateCloseList.add(new Date(118, 5, 17));
+        dateCloseList.add(new Date(118, 6, 8));
+        dateCloseList.add(new Date(118, 6, 15));
+        dateCloseList.add(new Date(118, 6, 22));
+        dateCloseList.add(new Date(118, 7, 12));
+        dateCloseList.add(new Date(118, 7, 19));
+        dateCloseList.add(new Date(118, 8, 9));
+        dateCloseList.add(new Date(118, 8, 16));
+        dateCloseList.add(new Date(118, 8, 23));
+        dateCloseList.add(new Date(118, 9, 14));
+        dateCloseList.add(new Date(118, 9, 21));
+        dateCloseList.add(new Date(118, 10, 11));
+        dateCloseList.add(new Date(118, 10, 18));
+        dateCloseList.add(new Date(118, 11, 9));
 
         TimeZone.setDefault(TimeZone.getTimeZone("GMT+1"));
-        final Long today = Calendar.getInstance().getTimeInMillis();
 
-        //datecloselist na 2018
-        for (Date date:dateCloseList){
-            Log.d("DATA 1234wazna",date.toString());
-            Date date1 = new Date(date.getYear() - 1900,date.getMonth(),date.getDay());
-            date = date1;
-            Log.d("DATA 123wazna",date.toString());
+
+
+        initAllSundaysInYear();
+        initAllNextSundays();
+        initClosestCloseSunday();
+        initClosestSunday();
+
+        //zabezpiecznie przed fck up
+//        if (closestSunday.before(new Date(today))){
+//            closestSunday = new Date(closestSunday.getYear(),closestCloseSunday.getMonth(),closestCloseSunday.getDay() + 7);
+//        }
+
+        Log.d("DATA timezone", TimeZone.getDefault().getDisplayName());
+        Log.d("DATA najblizsza",closestSunday.toString()+" closestSunday");
+        Log.d("DATA zamknieta",closestCloseSunday.toString()+" closestCloseSunday");
+
+
+
+    }
+
+    private void initClosestSunday() {
+        //pobieranie najblizszej niedzieli
+        // DZIALA !
+        closestSunday = Collections.min(nextSundays, new Comparator<Date>() {
+            public int compare(Date d1, Date d2) {
+                long diff1 = Math.abs(d1.getTime() - today);
+                long diff2 = Math.abs(d2.getTime() - today);
+                return Long.compare(diff1, diff2);
+            }
+        });
+    }
+
+    private void initClosestCloseSunday() {
+        //pobieranie najblizszej niedzieli zamknietej
+        // NIE DZIALA !!!!
+        closestCloseSunday = Collections.min(dateCloseList, new Comparator<Date>() {
+            public int compare(Date d1, Date d2) {
+                long diff1 = Math.abs(d1.getTime() - today);
+                long diff2 = Math.abs(d2.getTime() - today);
+                return Long.compare(diff1, diff2);
+            }
+        });
+        Log.d("DATA 12wazna",closestCloseSunday.toString());
+    }
+
+    private void initAllNextSundays() {
+        //pobieranie wszytkich niedziel
+        int dayOfWeek = Calendar.SUNDAY;
+        Calendar cal = new GregorianCalendar();
+        cal.set(2018, 0, 0, 0, 0);
+        cal.set(DAY_OF_WEEK, dayOfWeek);
+
+        while (cal.get(Calendar.YEAR) == 2018) {
+            allSundays.add(cal.getTime());
+            cal.add(Calendar.DAY_OF_MONTH, 7);
         }
 
+    }
+
+    private void initAllSundaysInYear() {
         //pobieranie wszytkich W ROKU niedziel
         int i = Calendar.SUNDAY;
         Calendar cal1 = new GregorianCalendar();
@@ -81,61 +135,6 @@ public class Data {
             Log.d("DATA wazna",cal1.getTime().toString());
             cal1.add(Calendar.DAY_OF_MONTH, 7);
         }
-
-
-
-
-        //pobieranie wszytkich niedziel
-        int dayOfWeek = Calendar.SUNDAY;
-        Calendar cal = new GregorianCalendar();
-        cal.set(2018, 0, 0, 0, 0);
-        cal.set(DAY_OF_WEEK, dayOfWeek);
-
-        while (cal.get(Calendar.YEAR) == 2018) {
-            allSundays.add(cal.getTime());
-            cal.add(Calendar.DAY_OF_MONTH, 7);
-        }
-
-
-        //pobieranie najblizszej niedzieli zamknietej
-        // NIE DZIALA !!!!
-        closestCloseSunday = Collections.min(dateCloseList, new Comparator<Date>() {
-            public int compare(Date d1, Date d2) {
-                long diff1 = Math.abs(d1.getTime() - today);
-                long diff2 = Math.abs(d2.getTime() - today);
-                return Long.compare(diff1, diff2);
-            }
-        });
-        Log.d("DATA 12wazna",closestCloseSunday.toString());
-
-
-        //pobieranie najblizszej niedzieli
-        // DZIALA !
-        closestSunday = Collections.min(nextSundays, new Comparator<Date>() {
-            public int compare(Date d1, Date d2) {
-                long diff1 = Math.abs(d1.getTime() - today);
-                long diff2 = Math.abs(d2.getTime() - today);
-                return Long.compare(diff1, diff2);
-            }
-        });
-        //poprawianie roku na 2018
-        Date date1 = new Date(closestCloseSunday.getYear() - 1900,closestCloseSunday.getMonth(),closestCloseSunday.getDay());
-        closestCloseSunday = date1;
-
-        //zabezpiecznie przed fck up
-        if (closestSunday.before(new Date(today))){
-            closestSunday = new Date(closestSunday.getYear(),closestCloseSunday.getMonth(),closestCloseSunday.getDay() + 7);
-        }
-
-
-
-
-        Log.d("DATA timezone", TimeZone.getDefault().getDisplayName());
-        Log.d("DATA najblizsza",closestSunday.toString()+" closestSunday");
-        Log.d("DATA zamknieta",closestCloseSunday.toString()+" closestCloseSunday");
-
-
-
     }
 
     public boolean isNextSundayClose() {
