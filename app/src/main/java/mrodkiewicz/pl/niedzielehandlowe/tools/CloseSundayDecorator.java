@@ -17,6 +17,7 @@ import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
 
 
 public class CloseSundayDecorator implements DayViewDecorator {
+    private String TAG = getClass().getSimpleName() + "flag";
     private final Date date = new Date();
     private final Drawable highlightDrawable;
     private Calendar calendar;
@@ -35,8 +36,8 @@ public class CloseSundayDecorator implements DayViewDecorator {
 
         for (Date date:data.dateCloseList){
             if (calendar.get(Calendar.DAY_OF_MONTH) == date.getDay() & calendar.get(Calendar.MONTH) == date.getMonth()){
-                    Log.d("WASZSZNE BARDZO1",calendar.getTime().toString() + "");
-                    Log.d("WASZSZNE BARDZO2",date.toString() + "");
+                    Log.d(TAG,"shouldDecorate day" + calendar.getTime().toString());
+                    Log.d(TAG,"shouldDecorate closelist day" + date.toString());
                     isClose= true;
             }
 

@@ -22,17 +22,10 @@ import mrodkiewicz.pl.niedzielehandlowe.tools.NotificationsDecorator;
 import mrodkiewicz.pl.niedzielehandlowe.tools.OpenWeekendDecorator;
 import mrodkiewicz.pl.niedzielehandlowe.tools.TodayDecorator;
 
-/*
-Do zrobienia:
-    0. Trzeba stworzyc własna klase data ktora oblsuzy wszytko to co potrzebujemy 
-    1. Nie działa wykrywanie najblizszych niedziel
-    2. Algorytm wykrywa najblizsza niedzile ale trzeba wykluczyc niedziele która juz mineła.
-    3. Kolorowanie nieczynnych niedzieli na czerwono
-    4. Dodanie funkconalności do opcji w Main Menu
-    5. Wsadzenie wysztkich wyliczen z date do osobnych metod
- */
+
 
 public class MainActivity extends AppCompatActivity {
+    private String TAG = getClass().getSimpleName()+ " flag";
     public static Data data = new Data();
     private MaterialCalendarView calendarView;
     private TextView textView;
@@ -55,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         openSunday = getResources().getColor(R.color.openSunday);
         closeSunday = getResources().getColor(R.color.closeSunday);
 
-        Log.d("TEST", String.valueOf(data.isNextSundayClose()));
-        Log.d("TEST", String.valueOf(data.closestSunday().toString()));
+        Log.d(TAG, "is next sunday close: " + String.valueOf(data.isNextSundayClose()));
+//        Log.d(TAG, "closestSunday: " + String.valueOf(data.closestSunday().toString()));
         calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
 
         // styczen = 0 grudzien = 11
