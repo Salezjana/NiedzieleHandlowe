@@ -32,16 +32,6 @@ public class CloseSundayDecorator implements DayViewDecorator {
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         boolean isClose = false;
-        day.copyTo(calendar);
-
-        for (Date date:data.dateCloseList){
-            if (calendar.get(Calendar.DAY_OF_MONTH) == date.getDay() & calendar.get(Calendar.MONTH) == date.getMonth()){
-                    Log.d(TAG,"shouldDecorate day" + calendar.getTime().toString());
-                    Log.d(TAG,"shouldDecorate closelist day" + date.toString());
-                    isClose= true;
-            }
-
-        }
         return isClose;
     }
 

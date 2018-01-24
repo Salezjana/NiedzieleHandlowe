@@ -1,8 +1,6 @@
 package mrodkiewicz.pl.niedzielehandlowe;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +13,8 @@ import android.widget.TextView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+
+import net.danlew.android.joda.JodaTimeAndroid;
 
 import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
 import mrodkiewicz.pl.niedzielehandlowe.tools.CloseSundayDecorator;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        JodaTimeAndroid.init(this);
         textView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
