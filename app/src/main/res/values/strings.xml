@@ -3,6 +3,8 @@
 
     <string name="state_open_text">W NAJBLIZSZĄ NIEDZIELE SKLEPY SĄ OTWARTE</string>
     <string name="state_close_text">W NAJBLIZSZĄ NIEDZIELE SKLEPY SĄ ZAMKNIĘTE</string>
+    <string name="state_today_open_text">DZIŚ SKLEPY SĄ ZAMKNIĘTE</string>
+    <string name="state_today_close_text">DZIŚ SKLEPY SĄ OTWARTE</string>
 
     <string name="action_rate">Oceń Apke!</string>
     <string name="action_bug">Zgłoś Bład</string>

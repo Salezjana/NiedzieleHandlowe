@@ -14,9 +14,8 @@ import java.util.Calendar;
 public class OpenWeekendDecorator implements DayViewDecorator {
     private final Calendar calendar = Calendar.getInstance();
     private final Drawable drawable;
-    private static final int color = Color.parseColor("#64087f23");
 
-    public OpenWeekendDecorator() {
+    public OpenWeekendDecorator(int color) {
         drawable = new ColorDrawable(color);
     }
 

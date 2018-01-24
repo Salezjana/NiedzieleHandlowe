@@ -22,6 +22,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.chrono.GregorianChronology;
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private ImageView imageView;
     private LinearLayout linearLayout;
-    private int openSundayColor,closeSundayColor;
+    private int openSundayColor,closeSundayColor,openSundayCalendarColor,closeSundayCalendarColor;
 
 
     @Override
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         openSundayColor = getResources().getColor(R.color.openSunday);
         closeSundayColor = getResources().getColor(R.color.closeSunday);
+        openSundayCalendarColor = getResources().getColor(R.color.openSundayCalendar);
+        closeSundayCalendarColor = getResources().getColor(R.color.closeSundayCalendar);
 
         ArrayList<CalendarDay> closeSundaysCollection = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -78,19 +81,28 @@ public class MainActivity extends AppCompatActivity {
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
         calendarView.addDecorators(
-                new OpenWeekendDecorator(),
-                new CloseSundayDecorator(closeSundayColor, closeSundaysCollection),
+                new OpenWeekendDecorator(openSundayCalendarColor),
+                new CloseSundayDecorator(closeSundayCalendarColor, closeSundaysCollection),
                 new TodayDecorator()
         );
 
+
         if (data.isNextSundayClose()){
-            textView.setText(getString(R.string.state_close_text));
+            if (Days.daysBetween(data.getClosestSunday(),data.getToday()).getDays() == 0){
+                textView.setText(getString(R.string.state_today_close_text));
+            }else {
+                textView.setText(getString(R.string.state_open_text));
+            }
             textView.setTextColor(closeSundayColor);
             imageView.setImageResource(R.drawable.ic_remove_shopping_cart_black_24dp);
             linearLayout.setBackgroundColor(closeSundayColor);
 
         }else{
-            textView.setText(getString(R.string.state_open_text));
+            if (Days.daysBetween(data.getClosestSunday(),data.getToday()).getDays() == 0){
+                textView.setText(getString(R.string.state_today_open_text));
+            }else {
+                textView.setText(getString(R.string.state_open_text));
+            }
             textView.setTextColor(openSundayColor);
             imageView.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
             linearLayout.setBackgroundColor(openSundayColor);

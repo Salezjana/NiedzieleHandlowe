@@ -11,6 +11,8 @@
 
 
     <color name="openSunday">#60ad5e</color>
-    <color name="closeSunday">#e53935</color>
+    <color name="closeSunday">#E53935</color>
+    <color name="openSundayCalendar">#8BC34A</color>
+    <color name="closeSundayCalendar">#F44336</color>
     <color name="background">#eeeeee</color>
 </resources>

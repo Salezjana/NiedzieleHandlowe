@@ -99,4 +99,13 @@ public class Data {
     public ArrayList<LocalDate> getDateCloseList() {
         return dateCloseList;
     }
+
+    public LocalDate getToday() {
+        return today;
+    }
+
+    public LocalDate getClosestSunday() {
+
+        return closestSunday;
+    }
 }
