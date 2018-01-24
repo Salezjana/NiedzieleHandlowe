@@ -95,4 +95,8 @@ public class Data {
         if (Days.daysBetween(closestCloseSunday,closestSunday).getDays() == 0) return true;
         else return false;
     }
+
+    public ArrayList<LocalDate> getDateCloseList() {
+        return dateCloseList;
+    }
 }

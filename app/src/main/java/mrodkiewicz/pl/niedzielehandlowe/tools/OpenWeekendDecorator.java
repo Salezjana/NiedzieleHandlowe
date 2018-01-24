@@ -13,11 +13,11 @@ import java.util.Calendar;
 
 public class OpenWeekendDecorator implements DayViewDecorator {
     private final Calendar calendar = Calendar.getInstance();
-    private final Drawable highlightDrawable;
+    private final Drawable drawable;
     private static final int color = Color.parseColor("#64087f23");
 
     public OpenWeekendDecorator() {
-        highlightDrawable = new ColorDrawable(color);
+        drawable = new ColorDrawable(color);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class OpenWeekendDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.setBackgroundDrawable(highlightDrawable);
+        view.setBackgroundDrawable(drawable);
     }
 }

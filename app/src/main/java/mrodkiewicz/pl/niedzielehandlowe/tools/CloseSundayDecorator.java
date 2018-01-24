@@ -1,42 +1,35 @@
 package mrodkiewicz.pl.niedzielehandlowe.tools;
 
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import mrodkiewicz.pl.niedzielehandlowe.MainActivity;
-import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
+import java.util.Collection;
+import java.util.HashSet;
 
 
 public class CloseSundayDecorator implements DayViewDecorator {
-    private String TAG = getClass().getSimpleName() + "flag";
-    private final Date date = new Date();
-    private final Drawable highlightDrawable;
-    private Calendar calendar;
-    private final Data data = MainActivity.getData();
-    private static final int color = Color.parseColor("#e53935");
+    private final int color;
+    private final HashSet<CalendarDay> dates;
+    private final Drawable drawable;
 
-    public CloseSundayDecorator() {
-        highlightDrawable = new ColorDrawable(color);
-        calendar = Calendar.getInstance();
+    public CloseSundayDecorator(int color, Collection<CalendarDay> dates) {
+        this.color = color;
+        this.dates = new HashSet<>(dates);
+        drawable = new ColorDrawable(color);
     }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        boolean isClose = false;
-        return isClose;
+        return dates.contains(day);
     }
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.setBackgroundDrawable(highlightDrawable);
+        view.setBackgroundDrawable(drawable);;
     }
 }
