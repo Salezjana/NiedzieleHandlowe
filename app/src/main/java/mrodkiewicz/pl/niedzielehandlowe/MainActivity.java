@@ -27,6 +27,8 @@ import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
 import mrodkiewicz.pl.niedzielehandlowe.tools.CloseSundayDecorator;
 import mrodkiewicz.pl.niedzielehandlowe.tools.OpenWeekendDecorator;
@@ -37,12 +39,12 @@ import mrodkiewicz.pl.niedzielehandlowe.tools.TodayDecorator;
 public class MainActivity extends AppCompatActivity {
     private String TAG = getClass().getSimpleName()+ " flag";
     public static Data data = new Data();
-    private MaterialCalendarView calendarView;
+
+    @BindView(R.id.textView) TextView textView;
+    @BindView(R.id.calendarView) MaterialCalendarView calendarView;
+    @BindView(R.id.imageView) ImageView imageView;
+    @BindView(R.id.linearLayout) LinearLayout linearLayout;
     private SharedPreferences preferences;
-    private TextView textView;
-    private ImageView imageView;
-    private Menu menu;
-    private LinearLayout linearLayout;
     private int openSundayColor,closeSundayColor,openSundayCalendarColor,closeSundayCalendarColor;
 
 
@@ -51,11 +53,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         JodaTimeAndroid.init(this);
+        ButterKnife.bind(this);
 
-        textView = (TextView) findViewById(R.id.textView);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-        calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -113,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
