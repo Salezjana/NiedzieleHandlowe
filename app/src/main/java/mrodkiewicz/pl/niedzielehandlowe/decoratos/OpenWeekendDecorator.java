@@ -1,9 +1,7 @@
-package mrodkiewicz.pl.niedzielehandlowe.tools;
+package mrodkiewicz.pl.niedzielehandlowe.decoratos;
 
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;

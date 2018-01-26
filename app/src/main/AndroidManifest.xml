@@ -24,6 +24,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar">
         </activity>
+
+        <receiver android:name=".helpers.NotificationPublisher" />
     </application>
 
 </manifest>

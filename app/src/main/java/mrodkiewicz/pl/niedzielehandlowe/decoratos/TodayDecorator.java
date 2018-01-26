@@ -1,4 +1,4 @@
-package mrodkiewicz.pl.niedzielehandlowe.tools;
+package mrodkiewicz.pl.niedzielehandlowe.decoratos;
 
 import android.graphics.Typeface;
 import android.text.style.RelativeSizeSpan;

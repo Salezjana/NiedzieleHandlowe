@@ -1,10 +1,13 @@
 package mrodkiewicz.pl.niedzielehandlowe;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,10 +33,10 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
-import mrodkiewicz.pl.niedzielehandlowe.tools.CloseSundayDecorator;
-import mrodkiewicz.pl.niedzielehandlowe.tools.OpenWeekendDecorator;
-import mrodkiewicz.pl.niedzielehandlowe.tools.TodayDecorator;
-
+import mrodkiewicz.pl.niedzielehandlowe.decoratos.CloseSundayDecorator;
+import mrodkiewicz.pl.niedzielehandlowe.decoratos.OpenWeekendDecorator;
+import mrodkiewicz.pl.niedzielehandlowe.decoratos.TodayDecorator;
+import mrodkiewicz.pl.niedzielehandlowe.helpers.NotificationPublisher;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -110,6 +113,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void scheduleNotification(Notification notification, int delay) {
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle(getString(R.string.app_name));
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        return builder.build();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -122,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 intent = new Intent(this,SettingsViewerActivity.class);
                 startActivity(intent);
+                return true;
+            case R.id.action_bug:
+                scheduleNotification(getNotification("5 second delay"), 5000);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
