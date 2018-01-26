@@ -1,10 +1,11 @@
 package mrodkiewicz.pl.niedzielehandlowe;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.nfc.Tag;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -13,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.crash.FirebaseCrash;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -21,16 +21,11 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 
-import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
-import org.joda.time.chrono.GregorianChronology;
 
-import java.time.chrono.Chronology;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Iterator;
 
 import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
 import mrodkiewicz.pl.niedzielehandlowe.tools.CloseSundayDecorator;
@@ -43,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = getClass().getSimpleName()+ " flag";
     public static Data data = new Data();
     private MaterialCalendarView calendarView;
+    private SharedPreferences preferences;
     private TextView textView;
     private ImageView imageView;
+    private Menu menu;
     private LinearLayout linearLayout;
     private int openSundayColor,closeSundayColor,openSundayCalendarColor,closeSundayCalendarColor;
 
@@ -54,10 +51,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         JodaTimeAndroid.init(this);
+
         textView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         openSundayColor = getResources().getColor(R.color.openSunday);
         closeSundayColor = getResources().getColor(R.color.closeSunday);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             if (Days.daysBetween(data.getClosestSunday(),data.getToday()).getDays() == 0){
                 textView.setText(getString(R.string.state_today_close_text));
             }else {
-                textView.setText(getString(R.string.state_open_text));
+                textView.setText(getString(R.string.state_close_text));
             }
             textView.setTextColor(closeSundayColor);
             imageView.setImageResource(R.drawable.ic_remove_shopping_cart_black_24dp);
@@ -113,13 +113,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return true;
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                intent = new Intent(this,SettingsViewerActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+
     public static Context getContext() {
         return getContext();
     }

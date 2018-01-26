@@ -9,4 +9,8 @@
     <string name="action_rate">Oceń Apke!</string>
     <string name="action_bug">Zgłoś Bład</string>
     <string name="action_settings">Ustawienia</string>
+
+    <string name="title_activity_settings_viewer">Ustawienia</string>
+    <string name="preferences_notificasions_boolean_title">Powiadomienia</string>
+    <string name="preferences_notificasions_boolean_key">pref1</string>
 </resources>
