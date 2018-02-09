@@ -1,22 +1,20 @@
-package mrodkiewicz.pl.niedzielehandlowe.fragments;
+package pl.mrodkiewicz.niedzielehandlowe.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.prefs.Preferences;
-
-import mrodkiewicz.pl.niedzielehandlowe.R;
+import pl.mrodkiewicz.niedzielehandlowe.R;
 
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private String TAG = getClass().getSimpleName()+ " flag";
+    private String TAG = getClass().getSimpleName() + " flag";
+
     public SettingsFragment() {
 
     }
@@ -27,9 +25,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG,"ZMIANA " + sharedPreferences.getBoolean(key,true));
+        Log.d(TAG, "ZMIANA " + sharedPreferences.getBoolean(key, true));
 
     }
 
@@ -39,6 +38,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onResume();
 
     }
+
     @Override
     public void onPause() {
         getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);

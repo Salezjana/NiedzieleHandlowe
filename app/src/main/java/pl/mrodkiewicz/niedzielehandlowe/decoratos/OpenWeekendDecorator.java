@@ -1,4 +1,4 @@
-package mrodkiewicz.pl.niedzielehandlowe.decoratos;
+package pl.mrodkiewicz.niedzielehandlowe.decoratos;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;

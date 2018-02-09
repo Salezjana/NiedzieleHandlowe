@@ -1,4 +1,4 @@
-package mrodkiewicz.pl.niedzielehandlowe.decoratos;
+package pl.mrodkiewicz.niedzielehandlowe.decoratos;
 
 import android.graphics.Typeface;
 import android.text.style.RelativeSizeSpan;

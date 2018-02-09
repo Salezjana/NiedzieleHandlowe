@@ -1,4 +1,4 @@
-package mrodkiewicz.pl.niedzielehandlowe.helpers;
+package pl.mrodkiewicz.niedzielehandlowe.helpers;
 
 
 import android.app.AlarmManager;
@@ -10,18 +10,19 @@ import android.widget.Toast;
 
 import java.util.Date;
 
-public class Notifier extends BroadcastReceiver{
+public class Notifier extends BroadcastReceiver {
     private AlarmManager alarmManager;
     private Intent intent;
     private PendingIntent pendingIntent;
 
-    public void init(Context context){
+    public void init(Context context) {
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        intent = new Intent(context,Notifier.class);
-        pendingIntent = PendingIntent.getBroadcast(context,12112,intent,0);
+        intent = new Intent(context, Notifier.class);
+        pendingIntent = PendingIntent.getBroadcast(context, 12112, intent, 0);
     }
-    public void setAlarm(Date date){
-        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 5 * 1000,pendingIntent);
+
+    public void setAlarm(Date date) {
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5 * 1000, pendingIntent);
     }
 
     @Override

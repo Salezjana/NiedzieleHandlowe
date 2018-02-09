@@ -1,4 +1,4 @@
-package mrodkiewicz.pl.niedzielehandlowe.helpers;
+package pl.mrodkiewicz.niedzielehandlowe.helpers;
 
 import android.util.Log;
 
@@ -8,17 +8,16 @@ import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 
-import mrodkiewicz.pl.niedzielehandlowe.BuildConfig;
+import pl.mrodkiewicz.niedzielehandlowe.BuildConfig;
 
 
 public class Data {
+    public ArrayList<LocalDate> dateCloseList = new ArrayList<LocalDate>();
     private Boolean DEBUG = BuildConfig.DEBUG;
     private String TAG = getClass().getSimpleName() + " flag";
-
     private LocalDate today = LocalDate.now();
     private LocalDate closestSunday;
     private LocalDate closestCloseSunday;
-    public ArrayList<LocalDate> dateCloseList = new ArrayList<LocalDate>();
 
     public Data() {
         init();
@@ -50,7 +49,7 @@ public class Data {
         dateCloseList.add(new LocalDate(2018, 12, 9));
 
         if (DEBUG) {
-            Log.d(TAG,"Today " +  today);
+            Log.d(TAG, "Today " + today);
             for (LocalDate localDate : dateCloseList) {
                 Log.d(TAG, "LocalDate dateCloseList " + localDate);
                 Log.d(TAG, "daysBetween dateCloseList " + Days.daysBetween(localDate, today).getDays());
@@ -65,34 +64,34 @@ public class Data {
 
     private void initClosestSunday() {
         closestSunday = today.withDayOfWeek(DateTimeConstants.SUNDAY);
-        if (DEBUG){
-            Log.d(TAG,"initClosestSunday" + closestSunday);
+        if (DEBUG) {
+            Log.d(TAG, "initClosestSunday" + closestSunday);
         }
     }
 
     private void initClosestCloseSunday() {
-        int i,j = -10000000;
+        int i, j = -10000000;
         for (LocalDate localDate : dateCloseList) {
             i = Days.daysBetween(localDate, today).getDays();
             if (i < 0) {
-                if (j < i){
+                if (j < i) {
                     j = i;
                     closestCloseSunday = localDate;
                 }
 
-            }else if (i == 0){
+            } else if (i == 0) {
                 closestCloseSunday = today;
             }
 
         }
 
-        if (DEBUG){
-            Log.d(TAG,"initClosestCloseSunday " + closestCloseSunday);
+        if (DEBUG) {
+            Log.d(TAG, "initClosestCloseSunday " + closestCloseSunday);
         }
     }
 
     public boolean isNextSundayClose() {
-        if (Days.daysBetween(closestCloseSunday,closestSunday).getDays() == 0) return true;
+        if (Days.daysBetween(closestCloseSunday, closestSunday).getDays() == 0) return true;
         else return false;
     }
 

@@ -1,4 +1,4 @@
-package mrodkiewicz.pl.niedzielehandlowe.decoratos;
+package pl.mrodkiewicz.niedzielehandlowe.decoratos;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -29,6 +29,7 @@ public class CloseSundayDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.setBackgroundDrawable(drawable);;
+        view.setBackgroundDrawable(drawable);
+        ;
     }
 }

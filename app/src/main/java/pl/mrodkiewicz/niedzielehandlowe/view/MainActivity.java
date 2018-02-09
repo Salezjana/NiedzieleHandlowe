@@ -1,4 +1,4 @@
-package mrodkiewicz.pl.niedzielehandlowe;
+package pl.mrodkiewicz.niedzielehandlowe.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,17 +29,16 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import mrodkiewicz.pl.niedzielehandlowe.decoratos.CloseSundayDecorator;
-import mrodkiewicz.pl.niedzielehandlowe.decoratos.OpenWeekendDecorator;
-import mrodkiewicz.pl.niedzielehandlowe.decoratos.TodayDecorator;
-import mrodkiewicz.pl.niedzielehandlowe.helpers.Data;
-import mrodkiewicz.pl.niedzielehandlowe.helpers.Notifier;
+import pl.mrodkiewicz.niedzielehandlowe.R;
+import pl.mrodkiewicz.niedzielehandlowe.decoratos.CloseSundayDecorator;
+import pl.mrodkiewicz.niedzielehandlowe.decoratos.OpenWeekendDecorator;
+import pl.mrodkiewicz.niedzielehandlowe.decoratos.TodayDecorator;
+import pl.mrodkiewicz.niedzielehandlowe.helpers.Data;
+import pl.mrodkiewicz.niedzielehandlowe.helpers.Notifier;
 
 
 public class MainActivity extends AppCompatActivity {
-    private String TAG = getClass().getSimpleName() + " flag";
     public static Data data = new Data();
-
     @BindView(R.id.textView)
     TextView textView;
     @BindView(R.id.calendarView)
@@ -48,11 +47,19 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     @BindView(R.id.linearLayout)
     LinearLayout linearLayout;
+    private String TAG = getClass().getSimpleName() + " flag";
     private SharedPreferences preferences;
     private Notifier notifier;
     private NotificationCompat.Builder notification;
     private int openSundayColor, closeSundayColor, openSundayCalendarColor, closeSundayCalendarColor;
 
+    public static Context getContext() {
+        return getContext();
+    }
+
+    public static Data getData() {
+        return data;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_settings:
-                intent = new Intent(this, SettingsViewerActivity.class);
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.action_bug:
@@ -141,13 +148,5 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public static Context getContext() {
-        return getContext();
-    }
-
-    public static Data getData() {
-        return data;
     }
 }
